@@ -1,0 +1,71 @@
+{
+  "name": "indiandata-trade-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "fetch:monthly-totals": "bash scripts/fetch_ftspcc_monthly_totals.sh",
+    "fetch:yearly": "node scripts/fetch_ftspcc_yearly.js",
+    "fetch:country-distribution": "node scripts/fetch_ftspcc_country_distribution.js",
+    "fetch:commodity-shares": "node scripts/fetch_ftpa_group_shares.js",
+    "fetch:partner-products": "node scripts/fetch_eidb_partner_products.js",
+    "fetch:petroleum-country-mix": "node scripts/fetch_petroleum_country_mix.js",
+    "fetch:exchange-rate-fbil": "node scripts/fetch_fbil_reference_rates.js",
+    "fetch:exchange-rate-rbi": "python3 scripts/fetch_rbi_exchange_rate.py",
+    "build:yearly": "node scripts/build_ftspcc_yearly.js",
+    "build:country-slim": "node scripts/build_country_slim.js",
+    "build:product-discovery": "node scripts/build_product_discovery.js",
+    "build:value-chains": "node scripts/build_domestic_value_chain_opportunities.js && node scripts/validate_domestic_value_chain.js",
+    "build:product-stage-mix": "node scripts/build_product_stage_mix.js && node scripts/validate_product_data.js",
+    "check:value-chain-consistency": "node scripts/check_value_chain_consistency.js",
+    "validate:products": "node scripts/validate_product_data.js",
+    "validate:value-chains": "node scripts/validate_domestic_value_chain.js",
+    "validate:brief-data": "node scripts/validate_brief_data.js",
+    "test:regression": "node --import ./scripts/register-loader.js --test scripts/test_ui_regression.js",
+    "test:rendering": "node --import ./scripts/register-loader.js --test scripts/test_rendering.js",
+    "test:e2e": "playwright test",
+    "test": "npm run validate:products && npm run validate:value-chains && npm run validate:brief-data && npm run test:regression && npm run test:rendering",
+    "refresh:all": "npm run fetch:monthly-totals && npm run build:yearly && npm run fetch:country-distribution && npm run build:country-slim && npm run fetch:commodity-shares && npm run fetch:partner-products && npm run fetch:exchange-rate-fbil"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^9.1.1",
+    "@mui/material": "^9.1.1",
+    "next": "^16.2.12",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "overrides": {
+    "postcss": "^8.5.23",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^8.0.4",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/register": "^8.0.1",
+    "@eslint/eslintrc": "^3.3.6",
+    "@playwright/test": "^1.62.0",
+    "@testing-library/react": "^16.3.2",
+    "css-mediaquery": "^0.1.2",
+    "esbuild": "^0.28.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
+    "eslint-config-prettier": "^10.1.8",
+    "global-jsdom": "^29.0.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.8.4",
+    "tsx": "^4.23.1"
+  }
+}
